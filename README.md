@@ -1,4 +1,4 @@
-# Sistema de Gestão Editorial — Documentação Geral
+# Sistema de Gestão Didatico Editora — Documentação Geral
 ![udemy](https://img.shields.io/badge/Udemy-EC5252?style=for-the-badge&logo=Udemy&logoColor=white)
 ![](https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white)
 ![](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)
