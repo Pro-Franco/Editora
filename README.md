@@ -176,6 +176,12 @@ SELECT * FROM sp_dashboard_vendas();
 * Facilmente expansível
 
 ---
+# Observações Importantes
+
+* Sistema de paginação disponível apenas para o menu de Livros.
+
+---
+
 
 # 📄 Uso recomendado do README
 
