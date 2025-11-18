@@ -1,5 +1,14 @@
 # Sistema de Gestão Editorial — Documentação Geral
 
+# Tela de Login do Sistema WEB
+<img width="996" height="707" alt="image" src="https://github.com/user-attachments/assets/bf79faf2-5c2c-43a0-b6fc-79088f176dde" />
+
+# Dashboard do Sistema WEB
+<img width="1253" height="743" alt="image" src="https://github.com/user-attachments/assets/788ef994-eedd-4bb4-b573-ab351f40f650" />
+
+
+# Sistema de Gestão Editorial — Documentação Geral
+
 Este documento descreve o funcionamento completo do banco de dados, procedimentos, funções, gatilhos e regras de negócio do **Sistema de Gestão Editorial**, permitindo que seja incluído diretamente no README do projeto.
 
 ## 📘 Visão Geral do Sistema
