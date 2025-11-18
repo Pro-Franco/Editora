@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Erro Interno - Livraria</title>
+    <style>
+      .error-title {
+        color: #dc3545;
+      }
+      .error-details {
+        border-left-color: #dc3545;
+      }
+      .detail-value {
+        color: #dc3545;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-container">
+      <div class="error-icon">💥</div>
+      <h1 class="error-title">Erro Interno do Servidor</h1>
+      <h2 class="error-subtitle">Algo deu errado</h2>
+      <p class="error-message">
+        Ocorreu um erro interno no servidor. Nossa equipe já foi notificada.
+        Tente novamente em alguns instantes.
+      </p>
+      <div class="action-buttons">
+        <a href="{{ url_for('index') }}" class="btn btn-primary"></a>
+          Voltar ao Início</a
+        >
+        <button onclick="window.location.reload()" class="btn btn-secondary">
+          Tentar Novamente
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

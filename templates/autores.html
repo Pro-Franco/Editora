@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+<h2>Autores</h2>
+<a href="/autores/novo" class="btn">+ Novo Autor</a>
+
+{% if autores %}
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
+      <th>Nacionalidade</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for autor in autores %}
+    <tr>
+      <td>{{ autor.autor_id }}</td>
+      <td>{{ autor.nome }}</td>
+      <td>{{ autor.data_nascimento or '-' }}</td>
+      <td>{{ autor.nacionalidade or '-' }}</td>
+      <td>
+        <div class="actions">
+          <a href="/autores/{{ autor.autor_id }}/editar" class="btn">Editar</a>
+          <form
+            method="POST"
+            action="/autores/{{ autor.autor_id }}/deletar"
+            style="display: inline"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+            <button
+              type="submit"
+              class="delete"
+              onclick="return confirm('Tem certeza?')"
+            >
+              Deletar
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>Nenhum autor cadastrado. <a href="/autores/novo">Criar primeiro autor</a></p>
+{% endif %} {% endblock %}

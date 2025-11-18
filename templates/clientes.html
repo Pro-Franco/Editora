@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+<h2>Clientes</h2>
+<a href="/clientes/novo" class="btn">+ Novo Cliente</a>
+
+{% if clientes %}
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Data de Cadastro</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for cliente in clientes %}
+    <tr>
+      <td>{{ cliente.cliente_id }}</td>
+      <td>{{ cliente.nome }}</td>
+      <td>{{ cliente.email }}</td>
+      <td>{{ cliente.data_cadastro.strftime('%d/%m/%Y %H:%M') }}</td>
+      <td>
+        <div class="actions">
+          <a href="/clientes/{{ cliente.cliente_id }}/editar" class="btn"
+            >Editar</a
+          >
+          <form
+            method="POST"
+            action="/clientes/{{ cliente.cliente_id }}/deletar"
+            style="display: inline"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <button
+              type="submit"
+              class="delete"
+              onclick="return confirm('Tem certeza?')"
+            >
+              Deletar
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>
+  Nenhum cliente cadastrado. <a href="/clientes/novo">Criar primeiro cliente</a>
+</p>
+{% endif %} {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block content %}
+<h2>Dashboard</h2>
+<div class="stats">
+  <div class="stat-card">
+    <h3>Total de Autores</h3>
+    <div class="value">{{ total_autores }}</div>
+  </div>
+  <div class="stat-card">
+    <h3>Total de Livros</h3>
+    <div class="value">{{ total_livros }}</div>
+  </div>
+  <div class="stat-card">
+    <h3>Total de Clientes</h3>
+    <div class="value">{{ total_clientes }}</div>
+  </div>
+  <div class="stat-card">
+    <h3>Valor Total em Vendas</h3>
+    <div class="value">R$ {{ "%.2f"|format(total_vendas) }}</div>
+  </div>
+</div>
+{% endblock %}

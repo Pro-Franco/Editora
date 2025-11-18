@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block content %}
+<h2>Livros</h2>
+<a href="/livros/novo" class="btn">+ Novo Livro</a>
+
+{% if livros %}
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>ISBN</th>
+      <th>Data de Publicação</th>
+      <th>Gênero</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for livro in livros %}
+    <tr>
+      <td>{{ livro.livro_id }}</td>
+      <td>{{ livro.titulo }}</td>
+      <td>{{ livro.isbn }}</td>
+      <td>{{ livro.data_publicacao or '-' }}</td>
+      <td>{{ livro.genero or '-' }}</td>
+      <td>
+        <div class="actions">
+          <a href="/livros/{{ livro.livro_id }}/editar" class="btn">Editar</a>
+          <form
+            method="POST"
+            action="/livros/{{ livro.livro_id }}/deletar"
+            style="display: inline"
+          >
+            <button
+              type="submit"
+              class="delete"
+              onclick="return confirm('Tem certeza?')"
+            >
+              Deletar
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>Nenhum livro cadastrado. <a href="/livros/novo">Criar primeiro livro</a></p>
+{% endif %} {% endblock %}

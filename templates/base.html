@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Livraria{% endblock %}</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      .user-info {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.2);
+        padding: 10px 15px;
+        border-radius: 25px;
+        backdrop-filter: blur(10px);
+      }
+
+      .user-info span {
+        font-weight: 600;
+      }
+
+      .logout-btn {
+        background: rgba(255, 255, 255, 0.3);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9em;
+        font-weight: 600;
+        transition: all 0.3s;
+        text-decoration: none;
+      }
+
+      .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: translateY(-2px);
+      }
+
+      .logout-form {
+        display: inline;
+        margin: 0;
+      }
+
+      nav {
+        background: #f8f9fa;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #dee2e6;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        padding: 15px 20px;
+        text-decoration: none;
+        color: #667eea;
+        font-weight: 600;
+        transition: all 0.3s;
+        border-bottom: 3px solid transparent;
+      }
+
+      .nav-links a:hover {
+        background: #e9ecef;
+        border-bottom-color: #667eea;
+      }
+
+      .nav-user {
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .nav-user span {
+        color: #495057;
+        font-weight: 600;
+      }
+
+      .content {
+        padding: 40px 20px;
+      }
+
+      .alert {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        animation: slideIn 0.3s ease;
+      }
+
+      .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .alert-error {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .alert-info {
+        background: #d1ecf1;
+        color: #0c5460;
+        border: 1px solid #bee5eb;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      button,
+      .btn {
+        background: #667eea;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      button:hover,
+      .btn:hover {
+        background: #764ba2;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      button.delete {
+        background: #dc3545;
+      }
+
+      button.delete:hover {
+        background: #c82333;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table th {
+        background: #f8f9fa;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        color: #495057;
+        border-bottom: 2px solid #dee2e6;
+      }
+
+      table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      table tbody tr:hover {
+        background: #f8f9fa;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-width: 500px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-weight: 600;
+        margin-bottom: 5px;
+        color: #495057;
+      }
+
+      input,
+      select,
+      textarea {
+        padding: 10px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        font-size: 1em;
+        font-family: inherit;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+
+      .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .stat-card h3 {
+        font-size: 0.9em;
+        opacity: 0.9;
+        margin-bottom: 10px;
+      }
+
+      .stat-card .value {
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      @media (max-width: 768px) {
+        .user-info {
+          position: static;
+          justify-content: center;
+          margin-top: 15px;
+        }
+
+        nav {
+          flex-direction: column;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .nav-user {
+          width: 100%;
+          justify-content: center;
+          padding: 10px 20px;
+          background: #e9ecef;
+        }
+      }
+    </style>
+    {% block styles %}{% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>📚 Sistema de Livraria</h1>
+        <p>Gerenciamento de Autores, Livros, Clientes e Vendas</p>
+
+        {% if current_user.is_authenticated %}
+        <div class="user-info">
+          <span>Olá, <strong>{{ current_user.username }}</strong></span>
+          <form
+            method="POST"
+            action="{{ url_for('logout') }}"
+            class="logout-form"
+          >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <button type="submit" class="logout-btn">🚪 Sair</button>
+          </form>
+        </div>
+        {% endif %}
+      </header>
+
+      <nav>
+        <div class="nav-links">
+          <a href="/">Dashboard</a>
+          <a href="/autores">Autores</a>
+          <a href="/livros">Livros</a>
+          <a href="/clientes">Clientes</a>
+          <a href="/vendas">Vendas</a>
+        </div>
+
+        {% if current_user.is_authenticated %}
+        <div class="nav-user">
+          <span>Usuário: {{ current_user.username }}</span>
+        </div>
+        {% endif %}
+      </nav>
+
+      <div class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

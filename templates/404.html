@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página Não Encontrada - Livraria</title>
+    <style>
+      /* Use os mesmos estilos do 429.html, mudando cores */
+      .error-title {
+        color: #ffc107;
+      }
+      .error-details {
+        border-left-color: #ffc107;
+      }
+      .detail-value {
+        color: #ffc107;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-container">
+      <div class="error-icon">🔍</div>
+      <h1 class="error-title">Página Não Encontrada</h1>
+      <h2 class="error-subtitle">Oops! Esta página não existe</h2>
+      <p class="error-message">
+        A página que você está procurando não foi encontrada. Verifique o URL ou
+        navegue pelo menu.
+      </p>
+      <div class="action-buttons">
+        <a href="{{ url_for('index') }}" class="btn btn-primary"
+          >Voltar ao Início</a
+        >
+        <button onclick="history.back()" class="btn btn-secondary">
+          Voltar
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% block content %}
+<h2>Nova Venda</h2>
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <div class="form-group">
+    <label for="cliente_id">Cliente *</label>
+    <select id="cliente_id" name="cliente_id" required>
+      <option value="">Selecione um cliente</option>
+      {% for cliente in clientes %}
+      <option value="{{ cliente.cliente_id }}">{{ cliente.nome }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="data_venda">Data da Venda *</label>
+    <input type="date" id="data_venda" name="data_venda" required />
+  </div>
+
+  <h3>Itens da Venda</h3>
+  <div id="itens-container">
+    <div class="item-entrada">
+      <select name="livro_id">
+        <option value="">Selecione um livro</option>
+        {% for livro in livros %}
+        <option value="{{ livro.livro_id }}">{{ livro.titulo }}</option>
+        {% endfor %}
+      </select>
+      <input type="number" name="quantidade" placeholder="Quantidade" min="1" />
+      <input
+        type="number"
+        name="preco"
+        placeholder="Preço"
+        step="0.01"
+        min="0"
+      />
+    </div>
+  </div>
+
+  <button type="button" onclick="adicionarItem()">+ Adicionar Item</button>
+  <button type="submit">Criar Venda</button>
+  <a href="/vendas" class="btn" style="background: #6c757d">Cancelar</a>
+</form>
+
+<style>
+  .item-entrada {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .item-entrada select,
+  .item-entrada input {
+    padding: 8px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+  }
+</style>
+
+<script>
+  function adicionarItem() {
+      const container = document.getElementById('itens-container');
+      const livros = [
+          {% for livro in livros %}
+          { id: {{ livro.livro_id }}, title: '{{ livro.titulo }}' },
+          {% endfor %}
+      ];
+
+      const div = document.createElement('div');
+      div.className = 'item-entrada';
+      div.innerHTML = `
+          <select name="livro_id">
+              <option value="">Selecione um livro</option>
+              ${livros.map(l => `<option value="${l.id}">${l.title}</option>`).join('')}
+          </select>
+          <input type="number" name="quantidade" placeholder="Quantidade" min="1">
+          <input type="number" name="preco" placeholder="Preço" step="0.01" min="0">
+      `;
+      container.appendChild(div);
+  }
+</script>
+{% endblock %}

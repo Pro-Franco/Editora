@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block content %}
+<h2>Vendas</h2>
+<a href="/vendas/nova" class="btn">+ Nova Venda</a>
+
+{% if vendas %}
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Cliente</th>
+      <th>Data</th>
+      <th>Valor Total</th>
+      <th>Itens</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for venda in vendas %}
+    <tr>
+      <td>{{ venda.venda_id }}</td>
+      <td>{{ venda.cliente.nome }}</td>
+      <td>{{ venda.data_venda.strftime('%d/%m/%Y') }}</td>
+      <td>R$ {{ "%.2f"|format(venda.valor_total) }}</td>
+      <td>{{ venda.itens|length }}</td>
+      <td>
+        <form
+          method="POST"
+          action="/vendas/{{ venda.venda_id }}/deletar"
+          style="display: inline"
+        >
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <button
+            type="submit"
+            class="delete"
+            onclick="return confirm('Tem certeza?')"
+          >
+            Deletar
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>Nenhuma venda registrada. <a href="/vendas/nova">Criar primeira venda</a></p>
+{% endif %} {% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block content %}
+<h2>Novo Livro</h2>
+<form method="POST">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+  <div class="form-group">
+    <label for="titulo">Título *</label>
+    <input
+      type="text"
+      class="form-control"
+      id="titulo"
+      name="titulo"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="isbn">ISBN *</label>
+    <input
+      type="text"
+      class="form-control"
+      id="isbn"
+      name="isbn"
+      required
+      pattern="[0-9]{13}"
+    />
+  </div>
+  <div class="form-group">
+    <label for="data_publicacao">Data de Publicação</label>
+    <input
+      type="date"
+      class="form-control"
+      id="data_publicacao"
+      name="data_publicacao"
+    />
+  </div>
+  <div class="form-group">
+    <label for="genero">Gênero</label>
+    <input type="text" class="form-control" id="genero" name="genero" />
+  </div>
+  <div class="form-group">
+    <label for="autores">Autores</label>
+    <select class="form-control" id="autores" name="autores" multiple>
+      {% for autor in autores %}
+      <option value="{{ autor.autor_id }}">{{ autor.nome }}</option>
+      {% else %}
+      <option value="">Nenhum autor cadastrado</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Criar Livro</button>
+  <a href="{{ url_for('listar_livros') }}" class="btn btn-secondary mt-3"
+    >Cancelar</a
+  >
+</form>
+{% endblock %}
