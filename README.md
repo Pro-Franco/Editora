@@ -177,4 +177,4 @@ Você pode anexar este arquivo como:
 * Documentação na wiki
 * Arquivo de apresentação do projeto
 
-Sinta-se livre para solicitar uma versão formatada em **Markdown avançado**, **PDF**, **README técnico**, **README para GitHub** ou **README para usuários finais**.
+
